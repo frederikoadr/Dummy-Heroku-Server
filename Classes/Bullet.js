@@ -1,0 +1,16 @@
+var ServerObject = require('./ServerObject.js');
+var Vector2 = require('./Vector2.js');
+
+module.exports = class Bullet extends ServerObject {
+    constructor() {
+        super();
+        this.direction = new Vector2();
+        this.speed = 0.5;
+    }
+    onUpdate() {
+        this.position.x;
+        this.position.y;
+        this.position.z;
+        return false;
+    }
+}
