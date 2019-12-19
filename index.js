@@ -1,4 +1,7 @@
-var io = require('socket.io')(process.env.PORT || 52300);
+//ws://127.0.0.1:52300/socket.io/?EIO=4&transport=websocket
+//ws://crazy-pharmacist.herokuapp.com:80/socket.io/?EIO=4&transport=websocket
+//https://crazy-pharmacist.herokuapp.com/
+let io = require('socket.io')(process.env.PORT || 52300);
 
 //custom class
 var Player = require('./Classes/Player.js');
@@ -93,8 +96,6 @@ io.on('connection', function (socket) {
         bullet.position.x = data.position.x;
         bullet.position.y = data.position.y;
         bullet.position.z = data.position.z;
-        bullet.direction.x = data.direction.x;
-        bullet.direction.y = data.direction.y;
 
         bullets.push(bullet);
 
@@ -105,10 +106,6 @@ io.on('connection', function (socket) {
                 x: bullet.position.x,
                 y: bullet.position.y,
                 z: bullet.position.z
-            },
-            direction: {
-                x: bullet.direction.x,
-                y: bullet.direction.y
             }
         }
         socket.emit('serverSpawn', returnData);
