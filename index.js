@@ -32,17 +32,17 @@ setInterval(() => {
             }
         }
         else {
-            var returnData = {
-                id: bullet.id,
-                position: {
-                    x: bullet.position.x,
-                    y: bullet.position.y,
-                    z: bullet.position.z
-                }
-            }
-            for (var playerID in players) {
-                sockets[playerID].emit('updatePosition', returnData);
-            }
+            //var returnData = {
+            //    id: bullet.id,
+            //    position: {
+            //        x: bullet.position.x,
+            //        y: bullet.position.y,
+            //        z: bullet.position.z
+            //    }
+            //}
+            //for (var playerID in players) {
+            //    sockets[playerID].emit('updatePosition', returnData);
+            //}
         }
     });
 }, 100, 0);
@@ -51,7 +51,6 @@ io.on('connection', function (socket) {
     console.log('Connection Made!');
 
     var player = new Player();
-    var bullet = new Bullet();
     var thisPlayerID = player.id;
 
     players[thisPlayerID] = player;
@@ -84,14 +83,8 @@ io.on('connection', function (socket) {
 
         socket.broadcast.emit('updateRotation', player);
     });
-
-    socket.on('updatePositionObj', function (data) {
-        bullet.position.x = data.position.x;
-        bullet.position.y = data.position.y;
-        bullet.position.z = data.position.z;
-    });
-
     socket.on('fireBullet', function (data) {
+        var bullet = new Bullet();
         bullet.name = 'Bullet';
         bullet.position.x = data.position.x;
         bullet.position.y = data.position.y;
@@ -110,6 +103,18 @@ io.on('connection', function (socket) {
         }
         socket.emit('serverSpawn', returnData);
         socket.broadcast.emit('serverSpawn', returnData);
+    });
+
+    socket.on('updatePositionObj', function (data) {
+        
+        data.id;
+        data.position.x;
+        data.position.y;
+        data.position.z;
+
+        //console.log('id move ' + data.id);
+        socket.emit('updatePositionObj', data);
+        socket.broadcast.emit('updatePositionObj', data);
     });
 
     socket.on('disconnect', function () {
