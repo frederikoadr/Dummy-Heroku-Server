@@ -85,7 +85,7 @@ io.on('connection', function (socket) {
     });
     socket.on('fireBullet', function (data) {
         var bullet = new Bullet();
-        bullet.name = 'Bullet';
+        bullet.name = data.name;
         bullet.position.x = data.position.x;
         bullet.position.y = data.position.y;
         bullet.position.z = data.position.z;
